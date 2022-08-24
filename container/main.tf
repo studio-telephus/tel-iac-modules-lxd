@@ -15,7 +15,7 @@ resource "lxd_container" "container" {
   }
 
   dynamic file {
-    for_each = var.files.list
+    for_each = var.files.set
     content {
       source             = file.value
       target_file        = "/${var.files.target}/${file.value}"

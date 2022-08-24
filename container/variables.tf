@@ -36,14 +36,14 @@ variable "autostart" {
 variable "files" {
   type = object({
     target = string
-    list  = list(string)
+    set    = set(string)
   })
 }
 
 variable "exec" {
   type = object({
-    entrypoint = string
-    environment  = map(any)
+    entrypoint  = string
+    environment = map(any)
   })
 }
 
