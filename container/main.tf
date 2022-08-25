@@ -18,7 +18,7 @@ resource "lxd_container" "container" {
     for_each = var.files.set
     content {
       source             = file.value
-      target_file        = "/${var.files.target}/${file.value}"
+      target_file        = file.value
       create_directories = true
     }
   }
