@@ -25,8 +25,7 @@ resource "lxd_container" "container" {
 
   provisioner "local-exec" {
     command     = <<-EXEC
-      echo "Tere"
-      env
+      find /mnt -print
       while IFS='=' read -r key value ; do
         lxc config set ${self.name} environment.$key=$value
       done < <(env | grep "K4S")
