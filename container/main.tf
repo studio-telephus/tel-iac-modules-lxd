@@ -29,7 +29,7 @@ resource "lxd_container" "container" {
       env
       while IFS='=' read -r key value ; do
         lxc config set ${self.name} environment.$key=$value
-      done < <(env | grep "K4S")
+      done < <(env | grep "")
       lxc exec ${self.name} -- bash -xe -c 'chmod +x ${var.exec.entrypoint} && ${var.exec.entrypoint}'
     EXEC
     interpreter = ["/bin/bash", "-c"]
