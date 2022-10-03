@@ -33,11 +33,8 @@ variable "autostart" {
   default = false
 }
 
-variable "files" {
-  type = list(object({
-    source = string
-    target = string
-  }))
+variable "mount_dirs" {
+  type = list(string)
 }
 
 variable "exec" {

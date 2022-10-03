@@ -1,3 +1,10 @@
+locals {
+  files = flatten(tolist([for d in var.mount_dirs : [for f in fileset(d, "**") : {
+    source = "${d}/${f}"
+    target = "/${f}"
+  }]]))
+}
+
 resource "lxd_container" "container" {
   name      = var.name
   image     = var.image
@@ -15,10 +22,10 @@ resource "lxd_container" "container" {
   }
 
   dynamic file {
-    for_each = var.files
+    for_each = local.files
     content {
-      source             = file.value.source
-      target_file        = file.value.target
+      source             = file["source"]
+      target_file        = file["target"]
       create_directories = true
     }
   }
