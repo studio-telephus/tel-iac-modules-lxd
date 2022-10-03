@@ -34,10 +34,10 @@ variable "autostart" {
 }
 
 variable "files" {
-  type = object({
+  type = list(object({
+    source = string
     target = string
-    set    = set(string)
-  })
+  }))
 }
 
 variable "exec" {

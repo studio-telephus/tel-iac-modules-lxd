@@ -15,10 +15,10 @@ resource "lxd_container" "container" {
   }
 
   dynamic file {
-    for_each = var.files.set
+    for_each = var.files
     content {
-      source             = file.value
-      target_file        = file.value
+      source             = file.value.source
+      target_file        = file.value.target
       create_directories = true
     }
   }
