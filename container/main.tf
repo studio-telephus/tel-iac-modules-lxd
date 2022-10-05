@@ -24,8 +24,8 @@ resource "lxd_container" "container" {
   dynamic file {
     for_each = local.files
     content {
-      source             = each.value.source
-      target_file        = each.value.target
+      source             = file.value.source
+      target_file        = file.value.target
       create_directories = true
     }
   }
