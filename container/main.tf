@@ -32,7 +32,6 @@ resource "lxd_container" "container" {
 
   provisioner "local-exec" {
     command     = <<-EXEC
-      echo "Tere"
       env
       while IFS='=' read -r key value ; do
         lxc config set ${self.name} environment.$key=$value
