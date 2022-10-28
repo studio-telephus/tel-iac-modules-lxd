@@ -4,7 +4,7 @@ variable "name" {
 
 variable "image" {
   type    = string
-  default = "images:debian/buster"
+  default = "images:debian/bullseye"
 }
 
 variable "profiles" {
