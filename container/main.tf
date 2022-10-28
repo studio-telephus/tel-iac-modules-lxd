@@ -35,7 +35,6 @@ resource "null_resource" "local_exec_condition" {
   count = var.exec.enabled ? 1 : 0
 
   provisioner "local-exec" {
-    count       = var.exec.enabled ? 1 : 0
     command     = <<-EXEC
       env
       while IFS='=' read -r key value ; do
