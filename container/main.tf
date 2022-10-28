@@ -29,19 +29,24 @@ resource "lxd_container" "container" {
       create_directories = true
     }
   }
+}
+
+resource "null_resource" "local_exec_condition" {
+  count = var.exec.enabled ? 1 : 0
 
   provisioner "local-exec" {
     count       = var.exec.enabled ? 1 : 0
     command     = <<-EXEC
       env
       while IFS='=' read -r key value ; do
-        lxc config set ${self.name} environment.$key=$value
+        lxc config set ${var.name} environment.$key=$value
       done < <(env | grep "")
-      lxc exec ${self.name} -- bash -xe -c 'chmod +x ${var.exec.entrypoint} && ${var.exec.entrypoint}'
+      lxc exec ${var.name} -- bash -xe -c 'chmod +x ${var.exec.entrypoint} && ${var.exec.entrypoint}'
     EXEC
     interpreter = ["/bin/bash", "-c"]
     environment = var.exec.environment
   }
+  depends_on = [lxd_container.container]
 }
 
 resource "lxd_volume_container_attach" "volume_attach" {
