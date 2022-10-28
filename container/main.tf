@@ -21,7 +21,7 @@ resource "lxd_container" "container" {
     properties = var.nic.properties
   }
 
-  dynamic file {
+  dynamic "file" {
     for_each = local.files
     content {
       source             = file.value.source
@@ -31,6 +31,7 @@ resource "lxd_container" "container" {
   }
 
   provisioner "local-exec" {
+    count       = var.exec.enabled ? 1 : 0
     command     = <<-EXEC
       env
       while IFS='=' read -r key value ; do

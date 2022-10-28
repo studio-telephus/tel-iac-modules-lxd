@@ -14,7 +14,7 @@ resource "lxd_container" "container" {
     properties = var.nic.properties
   }
 
-  dynamic file {
+  dynamic "file" {
     for_each = var.files.set
     content {
       source             = file.value

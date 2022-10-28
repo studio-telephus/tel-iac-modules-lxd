@@ -39,6 +39,7 @@ variable "mount_dirs" {
 
 variable "exec" {
   type = object({
+    enabled     = bool
     entrypoint  = string
     environment = map(any)
   })
