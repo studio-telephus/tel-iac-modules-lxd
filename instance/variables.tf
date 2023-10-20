@@ -43,5 +43,6 @@ variable "exec" {
     entrypoint  = string
     environment = map(any)
   })
+  sensitive   = true
 }
 

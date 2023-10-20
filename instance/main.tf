@@ -50,7 +50,6 @@ resource "null_resource" "local_exec_condition" {
 
   provisioner "local-exec" {
     command     = <<-EXEC
-      env
       while IFS='=' read -r key value ; do
         lxc config set ${var.name} $value
       done < <(env | grep "G76HJU3RFV_")
