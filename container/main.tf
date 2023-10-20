@@ -4,6 +4,9 @@ locals {
     target = "/${f}"
   }]]))
   lxc_set_environment = {for key, value in var.exec.environment: "G76HJU3RFV_${key}" => "environment.${key}=${value}"}
+  lxc_set_environment2 = {
+    "G76HJU3RFV_A" = "environment.A=B"
+  }
 }
 
 resource "lxd_container" "container" {
@@ -44,7 +47,7 @@ resource "null_resource" "local_exec_condition" {
       lxc exec ${var.name} -- bash -xe -c 'chmod +x ${var.exec.entrypoint} && ${var.exec.entrypoint}'
     EXEC
     interpreter = ["/bin/bash", "-c"]
-    environment = local.lxc_set_environment
+    environment = local.lxc_set_environment2
   }
   depends_on = [lxd_container.container]
 }
