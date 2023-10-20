@@ -3,7 +3,7 @@ locals {
     source = "${d}/${f}"
     target = "/${f}"
   }]]))
-  environment = [for key,value in var.exec.environment : "${key}=${value}"]
+  environment = ["A=B"]
 }
 
 resource "lxd_container" "container" {
