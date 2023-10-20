@@ -24,9 +24,9 @@ resource "lxd_instance" "instance" {
 
   dynamic "device" {
     for_each = var.volumes
-    type = "disk"
-    name = var.volumes[count.index].volume_name
     content {
+      type = "disk"
+      name = var.volumes[count.index].volume_name
       properties = {
         path = var.volumes[count.index].path
         source = var.volumes[count.index].volume_name
