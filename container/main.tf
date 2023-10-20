@@ -47,7 +47,7 @@ resource "null_resource" "local_exec_condition" {
       lxc exec ${var.name} -- bash -xe -c 'chmod +x ${var.exec.entrypoint} && ${var.exec.entrypoint}'
     EXEC
     interpreter = ["/bin/bash", "-c"]
-    environment = local.lxc_set_environment2
+    environment = local.lxc_set_environment
   }
   depends_on = [lxd_container.container]
 }
