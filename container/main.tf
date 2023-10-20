@@ -3,6 +3,7 @@ locals {
     source = "${d}/${f}"
     target = "/${f}"
   }]]))
+  environment = [for key,value in var.exec.environment : "${key}=${value}"]
 }
 
 resource "lxd_container" "container" {
@@ -39,11 +40,10 @@ resource "null_resource" "local_exec_condition" {
       env
       while IFS='=' read -r key value ; do
         lxc config set ${var.name} environment.$key=$value
-      done < <(env | grep "")
+      done < <(${local.environment})
       lxc exec ${var.name} -- bash -xe -c 'chmod +x ${var.exec.entrypoint} && ${var.exec.entrypoint}'
     EXEC
     interpreter = ["/bin/bash", "-c"]
-    environment = var.exec.environment
   }
   depends_on = [lxd_container.container]
 }
