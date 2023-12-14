@@ -3,7 +3,7 @@ locals {
     source = "${d}/${f}"
     target = "/${f}"
   }]]))
-  lxc_set_environment = {for key, value in var.exec.environment: "G76HJU3RFV_${key}" => "environment.${key}=${value}"}
+  lxc_set_environment = { for key, value in var.exec.environment : "G76HJU3RFV_${key}" => "environment.${key}=${value}" }
 }
 
 resource "lxd_instance" "instance" {
@@ -28,9 +28,9 @@ resource "lxd_instance" "instance" {
       type = "disk"
       name = var.volumes[count.index].volume_name
       properties = {
-        path = var.volumes[count.index].path
+        path   = var.volumes[count.index].path
         source = var.volumes[count.index].volume_name
-        pool = var.volumes[count.index].pool
+        pool   = var.volumes[count.index].pool
       }
     }
   }
@@ -47,7 +47,6 @@ resource "lxd_instance" "instance" {
 
 resource "null_resource" "local_exec_condition" {
   count = var.exec.enabled ? 1 : 0
-
   provisioner "local-exec" {
     command     = <<-EXEC
       while IFS='=' read -r key value ; do

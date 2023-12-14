@@ -3,7 +3,7 @@ locals {
     source = "${d}/${f}"
     target = "/${f}"
   }]]))
-  lxc_set_environment = {for key, value in var.exec.environment: "G76HJU3RFV_${key}" => "environment.${key}=${value}"}
+  lxc_set_environment = { for key, value in var.exec.environment : "G76HJU3RFV_${key}" => "environment.${key}=${value}" }
   lxc_set_environment2 = {
     "G76HJU3RFV_A" = "environment.A=B"
   }
